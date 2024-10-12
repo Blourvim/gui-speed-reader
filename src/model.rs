@@ -1,10 +1,10 @@
 #[derive(Copy, Clone)]
 struct Rectangle {
-    content: char,
+    pub content: char,
 }
 
 pub struct DisplayArray {
-    displays: [Rectangle; 26],
+  pub  displays: [Rectangle; 26],
 }
 
 impl Rectangle {
