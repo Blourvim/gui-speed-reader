@@ -1,10 +1,70 @@
+pub mod controller;
+mod model;
 mod view;
-use iced::Theme;
-use view::Layout;
+use std::time::Duration;
 
+use iced::mouse::Button;
+use iced::time;
+use iced::widget::Text;
+use iced::{widget::button, Element, Subscription, Theme};
+
+#[derive(Default)]
+struct Reader {
+    pub words: Vec<String>,
+    pub index: usize,
+    pub current_word: String,
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    Increment,
+    NewWord(String),
+}
+impl Reader {
+    pub fn new() -> Self {
+        let text = "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.";
+        let words: Vec<String> = text.split_whitespace().map(String::from).collect();
+        println!("setting words");
+        Self {
+            words: words.clone(),
+            index: 0usize,
+            current_word: words[0].clone(),
+        }
+    }
+
+    pub fn update(&mut self, message: Message) {
+        match message {
+            Message::Increment => {
+                println!("incrementing{:?}", &self.index);
+
+                self.index = self.index + 1
+            }
+            Message::NewWord(_) => todo!(),
+        }
+    }
+
+    pub fn view(&self) -> Element<Message> {
+        let word: &str = match self.words.len() {
+            0 => "no word",
+            _ => &self.words[0],
+        };
+
+        button(word).into()
+    }
+
+    pub fn subscription(&self) -> Subscription<Message> {
+        let message = time::every(Duration::from_secs(1)).map(|_| Message::Increment);
+        Subscription::batch(vec![
+            message, // , keyboard::on_key_press(handle_hotkey)
+        ])
+    }
+    pub fn theme(&self) -> Theme {
+        Theme::Dark
+    }
+}
 fn main() -> iced::Result {
-    iced::application("title", Layout::update, Layout::view)
-        .subscription(Layout::subscription)
-        .theme(Layout::theme)
+    iced::application("title", Reader::update, Reader::view)
+        .subscription(Reader::subscription)
+        .theme(Reader::theme)
         .run()
 }
