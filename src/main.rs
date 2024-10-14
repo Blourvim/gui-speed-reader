@@ -3,22 +3,23 @@ mod model;
 mod view;
 use std::time::Duration;
 
-use iced::mouse::Button;
 use iced::time;
-use iced::widget::Text;
 use iced::{widget::button, Element, Subscription, Theme};
 
-#[derive(Default)]
 struct Reader {
     pub words: Vec<String>,
     pub index: usize,
-    pub current_word: String,
 }
 
 #[derive(Debug, Clone)]
 enum Message {
     Increment,
-    NewWord(String),
+}
+
+impl Default for Reader {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 impl Reader {
     pub fn new() -> Self {
@@ -28,7 +29,6 @@ impl Reader {
         Self {
             words: words.clone(),
             index: 0usize,
-            current_word: words[0].clone(),
         }
     }
 
@@ -39,14 +39,13 @@ impl Reader {
 
                 self.index = self.index + 1
             }
-            Message::NewWord(_) => todo!(),
         }
     }
 
     pub fn view(&self) -> Element<Message> {
         let word: &str = match self.words.len() {
             0 => "no word",
-            _ => &self.words[0],
+            _ => &self.words[self.index],
         };
 
         button(word).into()
