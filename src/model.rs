@@ -1,5 +1,5 @@
 #[derive(Copy, Clone)]
-struct Rectangle {
+pub struct Rectangle {
     pub content: char,
 }
 
