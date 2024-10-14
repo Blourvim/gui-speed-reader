@@ -47,17 +47,8 @@ impl Reader {
     }
 
     pub fn view(&self) -> Element<Message> {
-        let word: &str = match self.words.len() {
-            0 => "There is no text",
-            _ => &self.words[self.index],
-        };
-
         let mut display_buttons = Row::new();
 
-        // for ch in word.chars() {
-        //     display_buttons = display_buttons.push(button(Text::new(ch.to_string())));
-        // }
-        //
         for rect in self.display_array.displays {
             display_buttons = display_buttons.push(button(Text::new(rect.content.to_string())));
         }
