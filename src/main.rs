@@ -50,7 +50,11 @@ impl Reader {
         let mut display_buttons = Row::new();
 
         for rect in self.display_array.displays {
-            display_buttons = display_buttons.push(button(Text::new(rect.content.to_string())));
+            display_buttons = display_buttons.push(
+                button(Text::new(rect.content.to_string()))
+                .width(20)
+
+            );
         }
         display_buttons.into()
     }
