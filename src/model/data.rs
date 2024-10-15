@@ -1,3 +1,5 @@
+const DISPLAY_ARRAY_LEN: usize = 27;
+
 #[derive(Copy, Clone)]
 pub struct Rectangle {
     pub content: char,
@@ -8,7 +10,7 @@ pub enum Message {
     Increment,
 }
 pub struct DisplayArray {
-    pub displays: [Rectangle; 26],
+    pub displays: [Rectangle; DISPLAY_ARRAY_LEN],
 }
 
 impl Rectangle {
@@ -29,7 +31,7 @@ impl Rectangle {
 
 impl DisplayArray {
     pub fn new() -> Self {
-        let boxes: [Rectangle; 26] = [Rectangle::new(' '); 26];
+        let boxes: [Rectangle; DISPLAY_ARRAY_LEN] = [Rectangle::new(' '); DISPLAY_ARRAY_LEN];
         Self { displays: boxes }
     }
 
@@ -44,7 +46,7 @@ impl DisplayArray {
 
         let start_index = 13usize - ((word_len / 2) as f32).floor() as usize;
 
-        for (i, c) in new_word.chars().take(26).enumerate() {
+        for (i, c) in new_word.chars().take(DISPLAY_ARRAY_LEN).enumerate() {
             self.displays[start_index + i].change_char(c);
         }
         self
