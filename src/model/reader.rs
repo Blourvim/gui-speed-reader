@@ -1,3 +1,4 @@
+use std::env;
 use super::data::{DisplayArray, Message};
 
 pub struct Reader {
@@ -5,7 +6,6 @@ pub struct Reader {
     pub index: usize,
     pub display_array: DisplayArray,
 }
-
 
 // we do that here since the iced calls default when istantiating the Reader
 impl Default for Reader {
@@ -16,8 +16,10 @@ impl Default for Reader {
 
 impl Reader {
     pub fn new() -> Self {
-        // makes sense to extract this text from clipboard at this point
-        let text = "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.";
+        let args: Vec<String> = env::args().collect();
+        // since the clipboard implementation  might be system dependent, i chose to implement the
+        // input text as a argument, so that it can be piped into the reader in the unix fashion
+        let text = &args[1];
         let words: Vec<String> = text.split_whitespace().map(String::from).collect();
         Self {
             display_array: DisplayArray::new(),
