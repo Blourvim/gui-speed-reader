@@ -2,7 +2,10 @@ use super::{
     config::ReaderConfig,
     data::{DisplayArray, Message},
 };
-use std::{env, path::Path};
+use std::{
+    env::{self, args},
+    path::Path,
+};
 
 pub struct Reader {
     pub words: Vec<String>,
@@ -20,14 +23,21 @@ impl Default for Reader {
 
 impl Reader {
     pub fn new() -> Self {
-        let args: Vec<String> = env::args().collect();
-        // since the clipboard implementation  might be system dependent, i chose to implement the
-        // input text as a argument, so that it can be piped into the reader in the unix fashion
-        let text = &args[1];
-        let words: Vec<String> = text.split_whitespace().map(String::from).collect();
-
         let path = Path::new("./config.toml");
         let config: ReaderConfig = confy::load_path(path).unwrap();
+
+        let args: Vec<String> = env::args().collect();
+
+        let words: Vec<String> = if args.len() == 2 {
+            args[1].split_whitespace().map(String::from).collect()
+        } else {
+            config
+                .tutorial_text
+                .split_whitespace()
+                .map(String::from)
+                .collect()
+        };
+
         Self {
             display_array: DisplayArray::new(),
             words: words.clone(),
