@@ -1,10 +1,14 @@
+use super::{
+    config::ReaderConfig,
+    data::{DisplayArray, Message},
+};
 use std::env;
-use super::data::{DisplayArray, Message};
 
 pub struct Reader {
     pub words: Vec<String>,
     pub index: usize,
     pub display_array: DisplayArray,
+    pub config: ReaderConfig,
 }
 
 // we do that here since the iced calls default when istantiating the Reader
@@ -21,10 +25,13 @@ impl Reader {
         // input text as a argument, so that it can be piped into the reader in the unix fashion
         let text = &args[1];
         let words: Vec<String> = text.split_whitespace().map(String::from).collect();
+
+        let config: ReaderConfig = confy::load("speeder", "main").unwrap();
         Self {
             display_array: DisplayArray::new(),
             words: words.clone(),
             index: 0usize,
+            config,
         }
     }
 

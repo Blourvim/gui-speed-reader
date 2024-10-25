@@ -1,21 +1,10 @@
 use iced::{
-    mouse::Button,
-    theme,
     widget::{button, Row, Text},
-    Color, Element, Theme,
+    Element,
 };
 
 use crate::model::{data::Message, reader::Reader};
 
-fn button_style() -> iced::widget::button::Style {
-    button::Style {
-        text_color: Color {
-            r: 100.0,
-            ..Default::default()
-        },
-        ..Default::default()
-    }
-}
 impl Reader {
     pub fn view(&self) -> Element<Message> {
         let mut display_buttons = Row::new();

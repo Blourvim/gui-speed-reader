@@ -4,4 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+confy = "0.6.1"
 iced = { version = "0.13.1", features = ["smol"] }
+serde = "1.0.213"
