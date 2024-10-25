@@ -2,7 +2,7 @@ use super::{
     config::ReaderConfig,
     data::{DisplayArray, Message},
 };
-use std::env;
+use std::{env, path::Path};
 
 pub struct Reader {
     pub words: Vec<String>,
@@ -26,7 +26,8 @@ impl Reader {
         let text = &args[1];
         let words: Vec<String> = text.split_whitespace().map(String::from).collect();
 
-        let config: ReaderConfig = confy::load("speeder", "main").unwrap();
+        let path = Path::new("./config.toml");
+        let config: ReaderConfig = confy::load_path(path).unwrap();
         Self {
             display_array: DisplayArray::new(),
             words: words.clone(),
