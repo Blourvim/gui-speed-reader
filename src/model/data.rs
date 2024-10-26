@@ -1,4 +1,4 @@
-const DISPLAY_ARRAY_LEN: usize = 27;
+const DISPLAY_ARRAY_LEN: usize = 37;
 
 #[derive(Copy, Clone)]
 pub struct Rectangle {
@@ -44,7 +44,8 @@ impl DisplayArray {
         let chars: Vec<char> = new_word.chars().collect();
         let word_len: i32 = chars.len().try_into().unwrap();
 
-        let start_index = 13usize - ((word_len / 2) as f32).floor() as usize;
+        // magic number where whopsies
+        let start_index = (DISPLAY_ARRAY_LEN / 2) - ((word_len / 2) as f32).floor() as usize;
 
         for (i, c) in new_word.chars().take(DISPLAY_ARRAY_LEN).enumerate() {
             self.displays[start_index + i].change_char(c);

@@ -10,7 +10,9 @@ impl Reader {
         let mut display_buttons = Row::new();
 
         for (i, rect) in self.display_array.displays.into_iter().enumerate() {
-            let mut btn = button(Text::new(rect.content.to_string())).width(25);
+            let mut btn = button(Text::new(rect.content.to_string()))
+                .width(25)
+                .height(40);
 
             if i == (self.display_array.displays.len() / 2) {
                 btn = btn.style(button::danger);
