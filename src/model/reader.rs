@@ -1,5 +1,3 @@
-use iced::settings;
-
 use super::{
     config::ReaderConfig,
     data::{DisplayArray, Message},

@@ -1,6 +1,6 @@
 use iced::{
     widget::{button, Row, Text},
-    Element,
+    Alignment, Element,
 };
 
 use crate::model::{data::Message, reader::Reader};
@@ -10,9 +10,9 @@ impl Reader {
         let mut display_buttons = Row::new();
 
         for (i, rect) in self.display_array.displays.into_iter().enumerate() {
-            let mut btn = button(Text::new(rect.content.to_string()))
+            let mut btn = button(Text::new(rect.content.to_string()).align_y(Alignment::Center).size(20))
                 .width(25)
-                .height(40);
+                .height(50);
 
             if i == (self.display_array.displays.len() / 2) {
                 btn = btn.style(button::danger);
@@ -20,6 +20,6 @@ impl Reader {
 
             display_buttons = display_buttons.push(btn);
         }
-        display_buttons.into()
+        display_buttons.align_y(Alignment::Center).into()
     }
 }
