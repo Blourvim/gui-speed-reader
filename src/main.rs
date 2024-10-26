@@ -11,6 +11,7 @@ fn main() -> iced::Result {
         .subscription(Reader::subscription)
         .theme(Reader::theme)
         .window(iced::window::Settings {
+            // TODO some magic numbers here, must make responsive/configurable
             max_size: Some(iced::Size::new(925.0, 3.0)),
             position: iced::window::Position::Centered,
             decorations: false,
