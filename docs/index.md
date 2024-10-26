@@ -2,7 +2,12 @@
 
 imagine a 7 segment display, but for letters basically the  general idea. regardless of the lenght of the word, middle letter must be placed in the middle of the display, we can carry on later
 
-[][H][E][L][L][O][]
+[][][H][E][L][L][O][][]
+[][][W][O][R][L][D][][]
 
 
-TODO:
+Features:
+    persistent configuration
+    Simple Ux
+    Blazing fast boot up
+
